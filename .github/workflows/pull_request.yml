@@ -1,9 +1,9 @@
 
-name: Check
+name: Test
 on:
   pull_request:
     branches:
-      - '**'
+      - '!main'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,4 +15,4 @@ jobs:
         run: yarn
       - uses: MansaGroup/nrwl-nx-action@v2.0.6
         with:
-          targets: lint,format:check,test,e2e,build,deploy
+          targets: lint,format:check,test,e2e
