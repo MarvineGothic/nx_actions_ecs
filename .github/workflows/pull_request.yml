@@ -21,4 +21,4 @@ jobs:
     steps:
       - name: get affected apps
         run: |
-          ls -la
+          echo 'ls -la'
