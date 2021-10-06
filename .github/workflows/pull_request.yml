@@ -1,7 +1,7 @@
 
 name: Check
 on:
-  push:
+  pull_request:
     branches:
       - '!master'
 jobs:
@@ -17,4 +17,3 @@ jobs:
         with:
           targets: lint,format:check,test,e2e,build,deploy
           affected: 'true'
-          
