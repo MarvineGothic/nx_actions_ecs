@@ -22,4 +22,3 @@ jobs:
       - name: get affected apps
       - run: |
         yarn install
-        yarn affected:print
