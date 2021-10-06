@@ -14,9 +14,9 @@ describe('AppController', () => {
   });
 
   describe('getData', () => {
-    it('should return "Welcome to html!"', () => {
+    it('should return Promise', () => {
       const appController = app.get<AppController>(AppController);
-      expect(appController.getData()).toEqual({ message: 'Welcome to html!' });
+      expect(appController.getData()).toBeInstanceOf(Promise);
     });
   });
 });
