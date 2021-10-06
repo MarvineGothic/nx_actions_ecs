@@ -51,6 +51,79 @@
           }
         }
       }
+    },
+    "html": {
+      "root": "apps/html",
+      "sourceRoot": "apps/html/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/html",
+            "main": "apps/html/src/main.ts",
+            "tsConfig": "apps/html/tsconfig.app.json",
+            "assets": ["apps/html/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/html/src/environments/environment.ts",
+                  "with": "apps/html/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "html:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/html/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/html"],
+          "options": {
+            "jestConfig": "apps/html/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "todos": {
+      "root": "libs/todos",
+      "sourceRoot": "libs/todos/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/todos/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/todos"],
+          "options": {
+            "jestConfig": "libs/todos/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {
