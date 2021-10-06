@@ -16,4 +16,4 @@ jobs:
       - uses: MansaGroup/nrwl-nx-action@v2.0.6
         with:
           targets: lint,format:check,test,e2e,build,deploy
-          affected: 'true'
+          # affected: 'true'
