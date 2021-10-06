@@ -17,3 +17,4 @@ jobs:
         with:
           targets: lint,format:check,test,e2e,build,deploy
           affected: 'true'
+          
