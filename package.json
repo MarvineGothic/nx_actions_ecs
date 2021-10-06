@@ -10,7 +10,8 @@
     "start-all": "nx run-many --target=serve --all --parallel",
     "build-all": "nx run-many --target=build --all --parallel",
     "test-all": "yarn nx run-many --target=test --all --parallel",
-    "affected:print": "npx nx print-affected --target=build --base=origin/main",
+    "affected:print": "nx print-affected --target=build --base=origin/main --select='projects'",
+    "affected:apps": "nx affected:apps",
     "dep-graph": "nx dep-graph"
   },
   "private": true,
