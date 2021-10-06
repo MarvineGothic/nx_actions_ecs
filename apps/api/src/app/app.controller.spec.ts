@@ -14,9 +14,9 @@ describe('AppController', () => {
   });
 
   describe('getData', () => {
-    it('should return "Welcome to api!"', () => {
+    it('should return todos', () => {
       const appController = app.get<AppController>(AppController);
-      expect(appController.getData()).toEqual({ message: 'Welcome to api!' });
+      expect(appController.getData()).toEqual([{"done": false, "message": "Take out trash"}, {"done": false, "message": "Continue using Nx"}]);
     });
   });
 });

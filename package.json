@@ -5,13 +5,20 @@
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "start-all": "nx run-many --target=serve --all --parallel",
+    "build-all": "nx run-many --target=build --all --parallel",
+    "test-all": "yarn nx run-many --target=test --all --parallel",
+    "affected:print": "npx nx print-affected --target=build --base=origin/main",
+    "dep-graph": "nx dep-graph"
   },
   "private": true,
   "dependencies": {
     "@nestjs/common": "^7.0.0",
     "@nestjs/core": "^7.0.0",
     "@nestjs/platform-express": "^7.0.0",
+    "axios": "^0.22.0",
+    "hbs": "^4.1.2",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~6.6.3",
     "tslib": "^2.0.0"
