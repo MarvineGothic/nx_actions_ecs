@@ -1,7 +1,7 @@
 {
   "npmScope": "nx-actions-ecs",
   "affected": {
-    "defaultBase": "master"
+    "defaultBase": "main"
   },
   "implicitDependencies": {
     "package.json": {
@@ -31,7 +31,8 @@
       "tags": []
     },
     "html": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["api"]
     },
     "todos": {
       "tags": []

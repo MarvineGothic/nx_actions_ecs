@@ -49,6 +49,16 @@
             "jestConfig": "apps/api/jest.config.js",
             "passWithNoTests": true
           }
+        },
+         "deploy": {
+          "executor": "@nrwl/workspace:run-commands",
+          "outputs": [],
+          "options": {
+            "commands": [
+              "nx build api"
+            ],
+            "cwd": "."
+          }
         }
       }
     },
@@ -99,6 +109,16 @@
           "options": {
             "jestConfig": "apps/html/jest.config.js",
             "passWithNoTests": true
+          }
+        },
+        "deploy": {
+          "executor": "@nrwl/workspace:run-commands",
+          "outputs": [],
+          "options": {
+            "commands": [
+              "nx build html"
+            ],
+            "cwd": "."
           }
         }
       }
