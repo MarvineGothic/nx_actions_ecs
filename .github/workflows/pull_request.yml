@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: get affected apps
         run: |
-          cd ../nx_actions_ecs
+          cd ../nx_actions_ecs/nx_actions_ecs
           ls -la
           yarn install
           yarn affected:print
