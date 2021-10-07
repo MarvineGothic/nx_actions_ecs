@@ -1,22 +1,14 @@
 name: Merge PR
 on:
-  # workflow_dispatch:
-  #   inputs:
-  #       puppy:
-  #         description: 'A kind of puppy.'
-  #         required: true
-  workflow_run:
-    workflows:
-    - Test
-    types:
-    - completed
+  workflow_dispatch:
+  inputs:
+      puppy:
+        description: 'A kind of puppy.'
+        required: true
 jobs:
   merge-PR:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.workflow_run.head_branch }}
       - name: Dump GitHub context
         env:
            GITHUB_CONTEXT: ${{ toJson(github) }}
