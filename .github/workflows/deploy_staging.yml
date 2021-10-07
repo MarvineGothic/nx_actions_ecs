@@ -66,6 +66,7 @@ jobs:
     #   id: login-ecr
     #   uses: aws-actions/amazon-ecr-login@v1
 
+    
     - name: print env var
       run: |
         echo ${{ env.AWS_REGION }}
@@ -81,10 +82,9 @@ jobs:
       run: yarn affected:deploy
     - name: get affected
       id: affected
-      if: $(yarn affected:apps | grep -o -E '\- api')
-      run: |
-        echo found
-
+      run: APPS=$(yarn affected:apps | grep -o -E '\- api' || "") && echo "::set-output name=APPS::$APPS"
+    - name: get output
+      run: echo ${{ steps.affected.outputs.APPS }}
 
     # - name: Build, tag, and push image to Amazon ECR
     #   id: build-image
