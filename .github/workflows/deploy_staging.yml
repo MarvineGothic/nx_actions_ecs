@@ -85,6 +85,9 @@ jobs:
       run: APPS=$(yarn affected:apps | grep -o -E '\- api' || true) && echo "::set-output name=APPS::$APPS"
     - name: get output
       run: echo ${{ steps.affected.outputs.APPS }}
+    - name: if statement
+      if: ${{ steps.affected.outputs.APPS == ""}}
+      run: echo "Empty"
 
     # - name: Build, tag, and push image to Amazon ECR
     #   id: build-image
