@@ -76,7 +76,7 @@ jobs:
       run: yarn affected:deploy
     - name: get affected
       id: affected
-      run: echo "::set-output name=APPS::$(yarn affected:apps)"
+      run: echo "::set-output name=APPS::oasdifuosiudf"
     - name: get output
       run: echo ${{ steps.affected.outputs.APPS }}
 
