@@ -72,8 +72,8 @@ jobs:
         echo ${{ env.CONTAINER_NAME }}
     - name: yarn install
       run: yarn
-    - name: deploy
-      run: yarn affected:deploy
+    # - name: deploy
+    #   run: yarn affected:deploy
     - name: get affected
       id: affected
       run: APPS=$(yarn affected:apps | grep -o -E '\- api') && echo "::set-output name=APPS::$APPS"
