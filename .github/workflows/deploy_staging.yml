@@ -72,14 +72,10 @@ jobs:
         echo ${{ env.CONTAINER_NAME }}
     - name: yarn install
       run: yarn
-    - name: Extract branch name
-      shell: bash
-      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-      id: extract_branch
     - name: git login
       run: |
         echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
-        gh workflow run merge.yml --ref ${{ steps.extract_branch.outputs.branch }}
+        gh workflow run merge.yml --ref si-7
     - name: deploy
       run: yarn affected:deploy
     - name: get affected
