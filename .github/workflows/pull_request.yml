@@ -13,17 +13,11 @@ jobs:
           fetch-depth: 0
       - name: yarn install
         run: yarn
+      - name: directory
+        run: ls -R
+        working-directory: ./
       - uses: MansaGroup/nrwl-nx-action@v2.0.6
         with:
           targets: lint,format:check,test,e2e
-  check_affected:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2.3.4
-        with:
-          fetch-depth: 0
-      - name: get affected apps
-        run: |
-          ls -la ../
-          ls -la ../../
-          ls -la ../../../
+        
+
