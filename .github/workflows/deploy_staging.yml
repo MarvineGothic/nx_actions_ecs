@@ -88,6 +88,13 @@ jobs:
         if [[ $(yarn affected:apps | grep -c '\- html') == 1 ]]; then
             echo Deploy html
         fi
+    - name: api deployment
+      if: $(yarn affected:apps | grep -c '\- api') == 1
+      run: echo It's api deployment
+
+    - name: html deployment 
+      if: $(yarn affected:apps | grep -c '\- html') == 1
+      run: echo It's html deployment
 
 
     # - name: Build, tag, and push image to Amazon ECR
