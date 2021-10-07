@@ -72,11 +72,11 @@ jobs:
         echo ${{ env.CONTAINER_NAME }}
     - name: yarn install
       run: yarn
-    - name: deploy
-      run: yarn affected:deploy
+    # - name: deploy
+    #   run: yarn affected:deploy
     - name: get affected
       id: affected
-      run: echo "::set-output name=APPS::oasdifuosiudf"
+      run: echo "::set-output name=APPS::$(yarn affected:apps)"
     - name: get output
       run: echo ${{ steps.affected.outputs.APPS }}
 
