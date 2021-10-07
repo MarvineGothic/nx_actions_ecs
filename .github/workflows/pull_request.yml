@@ -14,17 +14,10 @@ jobs:
           fetch-depth: 0
       - name: yarn install
         run: yarn
-      - name: check secrets
-        env:
-          SKEY: "key-${{ secrets.AWS_STAGING_ACCESS_KEY }}-key"
-          IMAGE_TAG: ${{ github.sha }}
-        run: |
-          echo $SKEY
-          echo $IMAGE_TAG
-      # - name: deploy
-      #   run: yarn affected:deploy
-      # - name: check images
-      #   run: docker image ls
+      - name: deploy
+        run: yarn affected:deploy
+      - name: check images
+        run: docker image ls
       # - uses: MansaGroup/nrwl-nx-action@v2.0.6
       #   with:
       #     targets: lint,format:check,test,e2e
