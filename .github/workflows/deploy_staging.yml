@@ -90,11 +90,11 @@ jobs:
         fi
     - name: api deployment
       if: ${{ contains(steps.affected.outputs.APPS, '- api') }}
-      run: echo It's api deployment
+      run: echo "It's api deployment"
 
     - name: html deployment 
       if: ${{ contains(steps.affected.outputs.APPS, '- html') }}
-      run: echo It's html deployment
+      run: echo "It's html deployment"
 
 
     # - name: Build, tag, and push image to Amazon ECR
