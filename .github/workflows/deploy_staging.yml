@@ -66,22 +66,24 @@ jobs:
     #   id: login-ecr
     #   uses: aws-actions/amazon-ecr-login@v1
 
-    - name: print env var
-      run: |
-        echo ${{ env.AWS_REGION }}
-        echo ${{ env.CONTAINER_NAME }}
     - name: yarn install
       run: yarn
     - name: git login
       run: |
+        echo $GITHUB_REF
         echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
     - name: deploy
       run: yarn affected:deploy
     - name: get affected
       id: affected
-      run: APPS=$(yarn affected:apps | grep -o -E '\- api') && echo "::set-output name=APPS::$APPS"
+      run: APPS=$(yarn affected:apps | grep -o -E '\- api' || true) && echo "::set-output name=APPS::$APPS"
     - name: get output
       run: echo ${{ steps.affected.outputs.APPS }}
+    - name: if statement
+      run: |
+        if [${{ steps.affected.outputs.APPS }} == ""]; then
+            echo WOOHOO
+         fi
 
     # - name: Build, tag, and push image to Amazon ECR
     #   id: build-image

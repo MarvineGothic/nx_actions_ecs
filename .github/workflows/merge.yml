@@ -1,10 +1,6 @@
 name: Merge PR
 on:
-  workflow_dispatch:
-    inputs:
-        puppy:
-          description: 'A kind of puppy.'
-          required: true
+  workflow_dispatch
 jobs:
   merge-PR:
     runs-on: ubuntu-latest
