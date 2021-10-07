@@ -65,6 +65,8 @@ jobs:
     #   id: login-ecr
     #   uses: aws-actions/amazon-ecr-login@v1
 
+    - name: yarn install
+      run: yarn
     - name: deploy
       run: yarn affected:deploy
     - name: check images
