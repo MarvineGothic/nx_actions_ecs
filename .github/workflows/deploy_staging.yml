@@ -76,7 +76,7 @@ jobs:
     #   run: yarn affected:deploy
     - name: get affected
       id: affected
-      run: echo "::set-output name=APPS::$(yarn affected:apps)"
+      run: APPS=toJson($(yarn affected:apps)) && echo "::set-output name=APPS::$APPS"
     - name: get output
       run: echo ${{ steps.affected.outputs.APPS }}
 
