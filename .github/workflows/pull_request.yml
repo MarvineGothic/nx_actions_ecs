@@ -15,7 +15,11 @@ jobs:
       - name: yarn install
         run: yarn
       - name: check secrets
-        run: echo "${{ secrets.AWS_ACCESS_KEY_ID }}"
+        env:
+          SKEY: "key-${{ secrets.AWS_ACCESS_KEY_ID }}-key"
+          IMAGE_TAG: ${{ github.sha }}
+        run: echo $SKEY
+        run: echo $IMAGE_TAG
       # - name: deploy
       #   run: yarn affected:deploy
       # - name: check images
