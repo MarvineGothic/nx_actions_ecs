@@ -80,7 +80,7 @@ jobs:
     - name: get affected
       id: affected
       run: |
-        APPS=$(yarn affected:apps | grep -o -E '\- api')
+        APPS=$(yarn affected:apps | grep -o -E '\- api') | ""
         echo APPS
 
 

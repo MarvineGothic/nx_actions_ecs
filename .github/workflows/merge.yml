@@ -4,6 +4,7 @@ on:
     inputs:
         puppy:
           description: 'A kind of puppy.'
+          required: false
 jobs:
   merge-PR:
     runs-on: ubuntu-latest
