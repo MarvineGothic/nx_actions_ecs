@@ -81,7 +81,7 @@ jobs:
       run: echo ${{ steps.affected.outputs.APPS }}
     - name: test manual workflow
       run: |
-        gh auth login
+        gh auth login --with-token ${{ secrets.GITHUB_TOKEN }}
         gh workflow run merge.yml
 
     # - name: Build, tag, and push image to Amazon ECR
