@@ -80,7 +80,9 @@ jobs:
     - name: get output
       run: echo ${{ steps.affected.outputs.APPS }}
     - name: test manual workflow
-      run: gh workflow run merge.yml
+      run: |
+        gh auth login
+        gh workflow run merge.yml
 
     # - name: Build, tag, and push image to Amazon ECR
     #   id: build-image
