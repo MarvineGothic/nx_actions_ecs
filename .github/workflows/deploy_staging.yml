@@ -77,9 +77,9 @@ jobs:
       run: yarn affected:deploy
     - name: get affected
       id: affected
-      run: APPS=$(yarn affected:apps 2>&1) && echo "::set-output name=APPS::$APPS"
+      run: APPS=$(yarn affected:apps | grep -o -E '\- \w*' || true) && echo "::set-output name=APPS::$APPS"
     - name: get output
-      run: echo ${{ steps.affected.outputs.APPS }} | grep -c '\- html'
+      run: echo ${{ steps.affected.outputs.APPS }}
     - name: if statement
       run: |
         if [[ $(yarn affected:apps | grep -c '\- api') == 1 ]]; then
