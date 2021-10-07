@@ -68,10 +68,11 @@ jobs:
 
     - name: yarn install
       run: yarn
-    - name: git login
-      run: |
-        echo $GITHUB_REF
-        echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
+    # - name: git login
+    #   run: |
+    #     echo $GITHUB_REF
+    #     echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
+    #     gh workflow run merge.yml
     - name: deploy
       run: yarn affected:deploy
     - name: get affected
@@ -81,9 +82,11 @@ jobs:
       run: echo ${{ steps.affected.outputs.APPS }}
     - name: if statement
       run: |
-        if [${{ steps.affected.outputs.APPS }} == ""]; then
-            echo WOOHOO
-         fi
+        if [yarn affected:apps | grep -c '\- api']; then
+            echo Deploy api
+        elif [yarn affected:apps | grep -c '\- html']; then
+            echo Deploy html
+        fi
 
 
     # - name: Build, tag, and push image to Amazon ECR

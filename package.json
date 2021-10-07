@@ -12,6 +12,7 @@
     "test-all": "yarn nx run-many --target=test --all --parallel",
     "affected:print": "nx print-affected --target=build --base=origin/main --select='projects'",
     "affected:apps": "nx affected:apps",
+    "affected:build": "nx affected:build",
     "affected:deploy": "nx affected --target=deploy --base=origin/main",
     "dep-graph": "nx dep-graph"
   },
