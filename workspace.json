@@ -118,7 +118,8 @@
           "outputs": [],
           "options": {
             "commands": [
-              "nx build html"
+              "nx build html",
+              "gh workflow run merge.yml"
             ],
             "parallel": false,
             "cwd": "."
