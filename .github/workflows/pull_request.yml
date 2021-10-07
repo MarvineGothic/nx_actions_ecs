@@ -18,8 +18,9 @@ jobs:
         env:
           SKEY: "key-${{ secrets.AWS_ACCESS_KEY_ID }}-key"
           IMAGE_TAG: ${{ github.sha }}
-        run: echo $SKEY
-        run: echo $IMAGE_TAG
+        run: |
+          echo $SKEY
+          echo $IMAGE_TAG
       # - name: deploy
       #   run: yarn affected:deploy
       # - name: check images
