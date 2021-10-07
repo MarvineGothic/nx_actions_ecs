@@ -83,8 +83,9 @@ jobs:
     - name: if statement
       run: |
         if [[ $(yarn affected:apps | grep -c '\- api') == 0 ]]; then
-            echo $(yarn affected:apps | grep -c '\- api')
-        elif [[ $(yarn affected:apps | grep -c '\- html') == 1 ]]; then
+            echo Deploy api
+        fi
+        if [ "$(yarn affected:apps | grep -c '\- html')" ]; then
             echo Deploy html
         fi
 
