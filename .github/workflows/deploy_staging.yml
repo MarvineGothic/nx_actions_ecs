@@ -86,8 +86,10 @@ jobs:
     - name: get output
       run: echo ${{ steps.affected.outputs.APPS }}
     - name: if statement
-      if: ${{ steps.affected.outputs.APPS == ""}}
-      run: echo "Empty"
+      run: |
+        if [${{ steps.affected.outputs.APPS }} == ""]; then
+            echo WOOHOO
+         fi
 
     # - name: Build, tag, and push image to Amazon ECR
     #   id: build-image
