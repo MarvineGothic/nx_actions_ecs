@@ -77,7 +77,7 @@ jobs:
       run: yarn affected:deploy
     - name: get affected
       id: affected
-      run: APPS=$(yarn affected:apps) && echo "::set-output name=APPS::$APPS"
+      run: APPS=$(yarn affected:apps 2>&1) && echo "::set-output name=APPS::$APPS"
     - name: get output
       run: echo ${{ steps.affected.outputs.APPS }}
     - name: if statement
