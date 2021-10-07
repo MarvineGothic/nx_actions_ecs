@@ -120,8 +120,7 @@
           "options": {
             "commands": [
               "nx build html",
-              "docker build -f ./apps/html/Dockerfile . -t html",
-              "gh workflow run merge.yml"
+              "docker build -f ./apps/html/Dockerfile . -t html"
             ],
             "parallel": false,
             "cwd": "."
