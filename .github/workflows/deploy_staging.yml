@@ -72,17 +72,16 @@ jobs:
         echo ${{ env.CONTAINER_NAME }}
     - name: yarn install
       run: yarn
-    # - name: deploy
-    #   run: yarn affected:deploy
+    - name: git login
+      run: |
+        echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
+    - name: deploy
+      run: yarn affected:deploy
     - name: get affected
       id: affected
       run: APPS=$(yarn affected:apps | grep -o -E '\- api') && echo "::set-output name=APPS::$APPS"
     - name: get output
       run: echo ${{ steps.affected.outputs.APPS }}
-    - name: test manual workflow
-      run: |
-        echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
-        gh workflow run merge.yml
 
     # - name: Build, tag, and push image to Amazon ECR
     #   id: build-image
