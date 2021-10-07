@@ -74,8 +74,11 @@ jobs:
       run: yarn
     - name: deploy
       run: yarn affected:deploy
-    - name: check images
-      run: docker image ls
+    - name: get affected
+      id: affected
+      run: echo "::set-output name=APPS::$(yarn affected:apps)"
+    - name: get output
+      run: echo ${{ steps.affected.outputs }}
 
     # - name: Build, tag, and push image to Amazon ECR
     #   id: build-image
