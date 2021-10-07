@@ -83,7 +83,7 @@ jobs:
     - name: if statement
       run: |
         if [ $(yarn affected:apps | grep -c '\- api') ]; then
-            echo Deploy api
+            echo $(yarn affected:apps | grep -c '\- api')
         elif [ $(yarn affected:apps | grep -c '\- html') ]; then
             echo Deploy html
         fi
