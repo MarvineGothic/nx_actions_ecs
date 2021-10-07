@@ -78,7 +78,7 @@ jobs:
       id: affected
       run: echo "::set-output name=APPS::$(yarn affected:apps)"
     - name: get output
-      run: echo ${{ steps.affected.outputs }}
+      run: echo ${{ steps.affected.outputs.APPS }}
 
     # - name: Build, tag, and push image to Amazon ECR
     #   id: build-image
