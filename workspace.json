@@ -119,7 +119,7 @@
           "options": {
             "commands": [
               "nx build html",
-              "echo env.AWS_REGION"
+              "echo ${{ env.AWS_REGION }}"
             ],
             "parallel": false,
             "cwd": "."
