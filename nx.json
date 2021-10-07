@@ -1,7 +1,7 @@
 {
   "npmScope": "nx-actions-ecs",
   "affected": {
-    "defaultBase": "main"
+    "defaultBase": "origin/main"
   },
   "implicitDependencies": {
     "package.json": {

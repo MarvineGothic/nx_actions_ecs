@@ -56,9 +56,10 @@
           "outputs": [],
           "options": {
             "commands": [
-              "nx build api"
+              "nx build api",
+              "docker build -f ./apps/api/Dockerfile . -t api"
             ],
-            "cwd": "."
+            "parallel": false
           }
         }
       }
@@ -118,8 +119,11 @@
           "outputs": [],
           "options": {
             "commands": [
-              "nx build html"
+              "nx build html",
+              "docker build -f ./apps/html/Dockerfile . -t html",
+              "gh help"
             ],
+            "parallel": false,
             "cwd": "."
           }
         }
