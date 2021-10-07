@@ -89,11 +89,11 @@ jobs:
             echo Deploy html
         fi
     - name: api deployment
-      if: ${{ steps.affected.outputs.APPS | grep -c '\- api' == 1 }}
+      if: ${{ contains(steps.affected.outputs.APPS, '- api') }}
       run: echo It's api deployment
 
     - name: html deployment 
-      if: ${{ steps.affected.outputs.APPS | grep -c '\- html' == 1 }}
+      if: ${{ contains(steps.affected.outputs.APPS, '- html') }}
       run: echo It's html deployment
 
 
