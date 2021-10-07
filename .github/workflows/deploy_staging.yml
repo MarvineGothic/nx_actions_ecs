@@ -72,7 +72,6 @@ jobs:
       run: |
         echo $GITHUB_REF
         echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
-        gh workflow run merge.yml --ref si-7
     - name: deploy
       run: yarn affected:deploy
     - name: get affected
