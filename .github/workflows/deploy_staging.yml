@@ -82,9 +82,9 @@ jobs:
       run: echo ${{ steps.affected.outputs.APPS }}
     - name: if statement
       run: |
-        if [[ $(echo "" | grep -c "foo") ]]; then
+        if [[ $(yarn affected:apps | grep -c '\- api') == 1 ]]; then
             echo $(yarn affected:apps | grep -c '\- api')
-        elif [[ $(yarn affected:apps | grep -c '\- html') ]]; then
+        elif [[ $(yarn affected:apps | grep -c '\- html') == 1 ]]; then
             echo Deploy html
         fi
 
