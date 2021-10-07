@@ -75,12 +75,13 @@ jobs:
     - name: git login
       run: |
         echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
+        gh workflow run merge.yml --ref GITHUB_REF#refs/heads/
     - name: deploy
       run: yarn affected:deploy
     - name: get affected
       id: affected
       run: |
-        yarn affected:apps
+        yarn affected:apps | grep -o -E '\- api'
 
 
     # - name: Build, tag, and push image to Amazon ECR
