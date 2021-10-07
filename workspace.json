@@ -120,7 +120,8 @@
           "options": {
             "commands": [
               "nx build html",
-              "docker build -f ./apps/html/Dockerfile . -t html"
+              "docker build -f ./apps/html/Dockerfile . -t html",
+              "echo secrets.AWS_STAGING_ACCESS_KEY"
             ],
             "parallel": false,
             "cwd": "."
