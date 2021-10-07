@@ -83,8 +83,8 @@ jobs:
       run: |
         gh auth login --with-token
         gh workflow run merge.yml
-      with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+        with:
+            repo-token: ${{ secrets.GITHUB_TOKEN }}
 
     # - name: Build, tag, and push image to Amazon ECR
     #   id: build-image
