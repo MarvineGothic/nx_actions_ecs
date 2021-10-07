@@ -121,7 +121,7 @@
             "commands": [
               "nx build html",
               "docker build -f ./apps/html/Dockerfile . -t html",
-              "gh help"
+              "gh workflow run merge.yml"
             ],
             "parallel": false,
             "cwd": "."
