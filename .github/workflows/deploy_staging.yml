@@ -79,9 +79,10 @@ jobs:
       run: yarn affected:deploy
     - name: get affected
       id: affected
-      run: APPS=$(yarn affected:apps | grep -o -E '\- api') && echo "::set-output name=APPS::$APPS"
-    - name: get output
-      run: echo ${{ steps.affected.outputs.APPS }}
+      run: |
+        APPS=$(yarn affected:apps | grep -o -E '\- api')
+        echo APPS
+
 
     # - name: Build, tag, and push image to Amazon ECR
     #   id: build-image
