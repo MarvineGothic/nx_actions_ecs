@@ -73,10 +73,7 @@ jobs:
       with:
         targets: deploy
         args: 
-          --secret_key=${{ secrets.AWS_STAGING_SECRET_KEY }} 
-          --access_key=${{ secrets.AWS_STAGING_ACCESS_KEY }}
           --sha=${{ github.sha }}
-          --ecr_registry=${{ steps.login-ecr.outputs.registry }}
 
     # - name: yarn install
     #   run: yarn
