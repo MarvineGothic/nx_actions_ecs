@@ -39,7 +39,7 @@ env:
   ECR_REPOSITORY_API: "staging/nx-api"           # set this to your Amazon ECR repository name
   ECS_SERVICE: "staging-service-backend"                 # set this to your Amazon ECS service name
   ECS_CLUSTER_API: "staging-backend"                 # set this to your Amazon ECS cluster name
-  ECS_TASK_DEFINITION_API: "task-nx-api" # set this to the path to your Amazon ECS task definition
+  ECS_TASK_DEFINITION_API: "task-nx-api:1" # set this to the path to your Amazon ECS task definition
                                                # file, e.g. .aws/task-definition.json
   CONTAINER_NAME_API: "staging-api-container"           # set this to the name of the container in the
                                                # containerDefinitions section of your task definition
