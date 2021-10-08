@@ -56,7 +56,8 @@
           "outputs": [],
           "options": {
             "commands": [
-              "nx build api"
+              "nx build api",
+              "sh deployment/deploy_api.sh {args.secret_key} {args.access_key} {args.region}"
             ],
             "parallel": false
           }
@@ -118,7 +119,8 @@
           "outputs": [],
           "options": {
             "commands": [
-              "nx build html"
+              "nx build html",
+              "sh deployment/deploy_html.sh {args.secret_key} {args.access_key} {args.region}"
             ],
             "parallel": false,
             "cwd": "."
