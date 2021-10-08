@@ -22,5 +22,7 @@ docker push $DOCKER_IMAGE
 echo "Try to pull image to ECS"
 echo "Check version"
 aws --version
+echo "Describe task definition"
+aws ecs describe-task-definition --task-definition task-nx-api-1 --output json
 # ecs-cli pull --registry-id $ECR_REGISTRY --region $AWS_REGION --verbose --use-fips "${ECR_REPOSITORY}:${IMAGE_TAG}" 
 
