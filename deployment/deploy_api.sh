@@ -21,6 +21,7 @@ docker push $DOCKER_IMAGE
 
 echo "Try to pull image to ECS"
 sudo curl -Lo /usr/local/bin/ecs-cli https://amazon-ecs-cli.s3.amazonaws.com/ecs-cli-linux-amd64-latest
+echo "Check version"
 ecs-cli --version
 # ecs-cli pull --registry-id $ECR_REGISTRY --region $AWS_REGION --verbose --use-fips "${ECR_REPOSITORY}:${IMAGE_TAG}" 
 
