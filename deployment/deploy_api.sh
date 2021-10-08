@@ -19,3 +19,6 @@ echo "Push api docker image to ECR"
 docker push $DOCKER_IMAGE_LATEST
 docker push $DOCKER_IMAGE
 
+echo "Try to pull image to ECS"
+ecs-cli pull --registry-id $ECR_REGISTRY --region $AWS_REGION --verbose --use-fips "${ECR_REPOSITORY}:${IMAGE_TAG}" 
+
