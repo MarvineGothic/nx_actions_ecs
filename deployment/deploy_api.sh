@@ -5,24 +5,32 @@ AWS_REGION="eu-west-1"
 ECR_REPOSITORY="staging/nx-api"
 ECS_SERVICE="staging-service-backend"
 ECS_CLUSTER="staging-backend"
+ECS_TASK_NAME="task-nx-api-1"
 ECS_TASK_DEFINITION="deployment/task_definition.json"
 CONTAINER_NAME="staging-api-container"
 
 DOCKER_IMAGE="${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}"
 DOCKER_IMAGE_LATEST="${ECR_REGISTRY}/${ECR_REPOSITORY}:latest"
 
-echo "Build api docker image ${DOCKER_IMAGE}"
+echo "Build api docker images"
 docker build -t $DOCKER_IMAGE_LATEST -f ./apps/api/Dockerfile .
 docker tag $DOCKER_IMAGE_LATEST $DOCKER_IMAGE
 
-echo "Push api docker image to ECR"
+echo "Push api docker images to ECR"
 docker push $DOCKER_IMAGE_LATEST
 docker push $DOCKER_IMAGE
 
 echo "Try to pull image to ECS"
-echo "Check version"
-aws --version
-echo "Describe task definition"
-aws ecs describe-task-definition --task-definition task-nx-api-1 --output json
-# ecs-cli pull --registry-id $ECR_REGISTRY --region $AWS_REGION --verbose --use-fips "${ECR_REPOSITORY}:${IMAGE_TAG}" 
+expr='.serviceArns[]|select(contains("/'$ECS_SERVICE'-"))|split("/")|.[1]'
+SNAME=$(aws ecs list-services --output json --cluster $ECS_CLUSTER | jq -r $expr)
+
+OLD_TASK_DEF=$(aws ecs describe-task-definition --task-definition $ECS_TASK_NAME --output json)
+NEW_TASK_DEF=$(echo $OLD_TASK_DEF | jq --arg NDI $DOCKER_IMAGE '.taskDefinition.containerDefinitions[0].image=$NDI')
+FINAL_TASK=$(echo $NEW_TASK_DEF | jq '.taskDefinition|{family: .family, volumes: .volumes, containerDefinitions: .containerDefinitions}')
+
+aws ecs register-task-definition --family $ECS_TASK_NAME --cli-input-json "$(echo $FINAL_TASK)"
+SUCCESS_UPDATE=$(aws ecs update-service --service $SNAME --task-definition $ECS_TASK_NAME --cluster $ECS_CLUSTER)
+
+echo "ECS updated: ${SUCCESS_UPDATE}"
+
 
