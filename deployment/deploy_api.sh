@@ -1,6 +1,6 @@
 #!/bin/bash
 SHA=$1
-ECR_REGISTRY=$2
+ECR_REGISTRY="435342033141.dkr.ecr.eu-west-1.amazonaws.com/staging/nx-api"
 AWS_REGION="eu-west-1" 
 ECR_REPOSITORY="staging/nx-api"
 ECS_SERVICE="staging-service-backend"
