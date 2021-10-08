@@ -11,9 +11,11 @@ CONTAINER_NAME="staging-api-container"
 DOCKER_IMAGE="${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}"
 DOCKER_IMAGE_LATEST="${ECR_REGISTRY}/${ECR_REPOSITORY}:latest"
 
-echo "Build api docker image"
+echo "Build api docker image ${DOCKER_IMAGE}"
 docker build -t $DOCKER_IMAGE_LATEST -f ./apps/api/Dockerfile .
 docker tag $DOCKER_IMAGE_LATEST $DOCKER_IMAGE
+
+echo "Push api docker image to ECR"
 docker push $DOCKER_IMAGE_LATEST
 docker push $DOCKER_IMAGE
 
