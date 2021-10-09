@@ -27,11 +27,6 @@ echo "Get services"
 aws ecs list-services --output json --cluster $ECS_CLUSTER
 
 SNAME=$(aws ecs list-services --output json --cluster $ECS_CLUSTER | jq -r $expr)
-exit 1
-if $SNAME == ""; then
-    echo "Missing Service ARN for ${ECS_SERVICE}"
-    exit 1
-fi
 echo "Service: ${SNAME}"
 
 echo "Get old task definition"
@@ -48,3 +43,6 @@ echo "Update service"
 SUCCESS_UPDATE=$(aws ecs update-service --service $SNAME --task-definition $ECS_TASK_NAME --cluster $ECS_CLUSTER || exit 1)
 
 echo "ECS updated: ${SUCCESS_UPDATE}"
+if [ -z ${SUCCESS_UPDATE+x} ]; then
+    exit 1;
+fi
