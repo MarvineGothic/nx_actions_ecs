@@ -28,6 +28,7 @@ SNAME=$(aws ecs list-services --output json --cluster $ECS_CLUSTER | jq -r $expr
 if ! $SNAME; then
     echo "Missing Service ARN for ${ECS_SERVICE}"
     exit 1
+fi
 echo "Service: ${SNAME}"
 
 echo "Get old task definition"
