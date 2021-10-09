@@ -26,25 +26,22 @@ expr='.serviceArns[]|select(contains("/'$ECS_SERVICE'-"))|split("/")|.[1]'
 echo "Get services"
 aws ecs list-services --output json --cluster $ECS_CLUSTER || exit 1
 
-SERVICE_ARN=$(aws ecs list-services --output json --cluster $ECS_CLUSTER | jq -r $expr) || exit 1
-if [ -z ${SERVICE_ARN+x} ] || [ !$SERVICE_ARN ]; then
-    echo "Service ARN not found"
-    exit 1;
-fi
+SERVICE_ARN=$(aws ecs list-services --output json --cluster $ECS_CLUSTER | jq -r $expr) 
+
 echo "Service: ${SERVICE_ARN}"
 
 echo "Get old task definition"
-OLD_TASK_DEF=$(aws ecs describe-task-definition --task-definition $ECS_TASK_NAME --output json)
+OLD_TASK_DEF=$(aws ecs describe-task-definition --task-definition $ECS_TASK_NAME --output json) || exit 1
 
 echo "Create new task definition"
-NEW_TASK_DEF=$(echo $OLD_TASK_DEF | jq --arg NDI $DOCKER_IMAGE '.taskDefinition.containerDefinitions[0].image=$NDI')
-FINAL_TASK=$(echo $NEW_TASK_DEF | jq '.taskDefinition|{family: .family, volumes: .volumes, containerDefinitions: .containerDefinitions}')
+NEW_TASK_DEF=$(echo $OLD_TASK_DEF | jq --arg NDI $DOCKER_IMAGE '.taskDefinition.containerDefinitions[0].image=$NDI') || exit 1
+FINAL_TASK=$(echo $NEW_TASK_DEF | jq '.taskDefinition|{family: .family, volumes: .volumes, containerDefinitions: .containerDefinitions}')  || exit 1
 
 echo "Register new task definition"
 aws ecs register-task-definition --family $ECS_TASK_NAME --cli-input-json "$(echo $FINAL_TASK)" --memory 2048 || exit 1
 
 echo "Update service"
-SUCCESS_UPDATE=$(aws ecs update-service --service $SERVICE_ARN --task-definition $ECS_TASK_NAME --cluster $ECS_CLUSTER || exit 1)
+SUCCESS_UPDATE=$(aws ecs update-service --service $ECS_SERVICE --task-definition $ECS_TASK_NAME --cluster $ECS_CLUSTER) || exit 1
 
 if [ -z ${SUCCESS_UPDATE+x} ] || [ !$SUCCESS_UPDATE ]; then
     echo "ECS is not updated"
