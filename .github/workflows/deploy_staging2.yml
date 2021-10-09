@@ -58,9 +58,13 @@ jobs:
     - name: yarn install
       run: yarn
     
-    - name: Install jq
-      run: sudo apt-get install jq
-      
+    - name: Install ecs-deploy
+      run: |
+        curl https://raw.githubusercontent.com/silinternational/ecs-deploy/master/ecs-deploy | sudo tee /usr/bin/ecs-deploy
+        sudo chmod +x /usr/bin/ecs-deploy
+
+
+
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
