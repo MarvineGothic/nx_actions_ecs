@@ -22,13 +22,21 @@ docker push $DOCKER_IMAGE
 
 echo "Try to pull image to ECS"
 expr='.serviceArns[]|select(contains("/'$ECS_SERVICE'-"))|split("/")|.[1]'
+
+echo "Get services"
 SNAME=$(aws ecs list-services --output json --cluster $ECS_CLUSTER | jq -r $expr)
 
+echo "Get old task definition"
 OLD_TASK_DEF=$(aws ecs describe-task-definition --task-definition $ECS_TASK_NAME --output json)
+
+echo "Create new task definition"
 NEW_TASK_DEF=$(echo $OLD_TASK_DEF | jq --arg NDI $DOCKER_IMAGE '.taskDefinition.containerDefinitions[0].image=$NDI')
 FINAL_TASK=$(echo $NEW_TASK_DEF | jq '.taskDefinition|{family: .family, volumes: .volumes, containerDefinitions: .containerDefinitions}')
 
+echo "Register new task definition"
 aws ecs register-task-definition --family $ECS_TASK_NAME --cli-input-json "$(echo $FINAL_TASK)" --memory 2048
+
+echo "Update service"
 SUCCESS_UPDATE=$(aws ecs update-service --service $SNAME --task-definition $ECS_TASK_NAME --cluster $ECS_CLUSTER)
 
 echo "ECS updated: ${SUCCESS_UPDATE}"
