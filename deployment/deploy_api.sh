@@ -43,11 +43,9 @@ echo "Try to push image to ECS"
 # echo "Update service"
 # SUCCESS_UPDATE=$(aws ecs update-service --service arn:aws:ecs:eu-west-1:435342033141:service/staging-backend/staging-service-backend --task-definition $ECS_TASK_NAME --cluster $ECS_CLUSTER) || exit 1
 
-SUCCESS_UPDATE=$(ecs-deploy -c $ECS_CLUSTER -n $ECS_SERVICE -i $DOCKER_IMAGE)
+ecs-deploy -c $ECS_CLUSTER -n $ECS_SERVICE -i $DOCKER_IMAGE || exit 1
 
 # if [ -z ${SUCCESS_UPDATE+x} ] || [ !$SUCCESS_UPDATE ]; then
 #     echo "ECS is not updated"
 #     exit 1;
 # fi
-
-echo "ECS updated: ${SUCCESS_UPDATE}"
