@@ -25,6 +25,9 @@ expr='.serviceArns[]|select(contains("/'$ECS_SERVICE'-"))|split("/")|.[1]'
 
 echo "Get services"
 SNAME=$(aws ecs list-services --output json --cluster $ECS_CLUSTER | jq -r $expr)
+if ! $SNAME; then
+    echo "Missing Service ARN for ${ECS_SERVICE}"
+    exit 1
 echo "Service: ${SNAME}"
 
 echo "Get old task definition"
