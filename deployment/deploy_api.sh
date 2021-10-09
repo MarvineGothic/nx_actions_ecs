@@ -27,6 +27,10 @@ echo "Get services"
 aws ecs list-services --output json --cluster $ECS_CLUSTER || exit 1
 
 SNAME=$(aws ecs list-services --output json --cluster $ECS_CLUSTER | jq -r $expr) || exit 1
+if [ -z ${SNAME+x} ]; then
+    echo "ECS is not updated"
+    exit 1;
+fi
 echo "Service: ${SNAME}"
 
 echo "Get old task definition"
