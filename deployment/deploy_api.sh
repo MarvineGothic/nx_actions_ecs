@@ -40,9 +40,10 @@ echo "Register new task definition"
 aws ecs register-task-definition --family $ECS_TASK_NAME --cli-input-json "$(echo $FINAL_TASK)" --memory 2048 || exit 1
 
 echo "Update service"
-SUCCESS_UPDATE=$(aws ecs update-service --service $SNAME --task-definition $ECS_TASK_NAME --cluster $ECS_CLUSTER || exit 1)
+SUCCESS_UPDATE=$(aws ecs update-service --service $SNAME --task-definition $ECS_TASK_NAME --cluster $ECS_CLUSTER || exit 1) || exit 1
 
 echo "ECS updated: ${SUCCESS_UPDATE}"
-if [ -z ${SUCCESS_UPDATE+x} ]; then
+if [ -z ${SUCCESS_UPDATE+x} ] || [ !$SUCCESS_UPDATE ] || [ $SUCCESS_UPDATE == false ] || [ $SUCCESS_UPDATE == ""] || [ -z "$SUCCESS_UPDATE"]; then
+    echo "ECS is not updated"
     exit 1;
 fi

@@ -58,6 +58,9 @@ jobs:
     - name: yarn install
       run: yarn
     
+    - name: Install jq
+      run: sudo apt-get install jq
+      
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
