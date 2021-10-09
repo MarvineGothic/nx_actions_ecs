@@ -1,6 +1,6 @@
 #!/bin/bash
 IMAGE_TAG=$1
-ECR_REGISTRY="435342033141.dkr.ecr.eu-west-1.amazonaws.com"
+ECR_REGISTRY=$2
 AWS_REGION="eu-west-1" 
 ECR_REPOSITORY="staging/nx-api"
 ECS_SERVICE="staging-service-backend"
@@ -28,9 +28,10 @@ OLD_TASK_DEF=$(aws ecs describe-task-definition --task-definition $ECS_TASK_NAME
 NEW_TASK_DEF=$(echo $OLD_TASK_DEF | jq --arg NDI $DOCKER_IMAGE '.taskDefinition.containerDefinitions[0].image=$NDI')
 FINAL_TASK=$(echo $NEW_TASK_DEF | jq '.taskDefinition|{family: .family, volumes: .volumes, containerDefinitions: .containerDefinitions}')
 
-aws ecs register-task-definition --family $ECS_TASK_NAME --cli-input-json "$(echo $FINAL_TASK)"
+RESULT_REGISTER=$(aws ecs register-task-definition --family $ECS_TASK_NAME --cli-input-json "$(echo $FINAL_TASK)" --memory 2048)
 SUCCESS_UPDATE=$(aws ecs update-service --service $SNAME --task-definition $ECS_TASK_NAME --cluster $ECS_CLUSTER)
 
+echo "Register result: ${RESULT_REGISTER}"
 echo "ECS updated: ${SUCCESS_UPDATE}"
 
 
