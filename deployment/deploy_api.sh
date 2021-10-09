@@ -24,8 +24,10 @@ echo "Try to pull image to ECS"
 expr='.serviceArns[]|select(contains("/'$ECS_SERVICE'-"))|split("/")|.[1]'
 
 echo "Get services"
+aws ecs list-services --output json --cluster $ECS_CLUSTER
+
 SNAME=$(aws ecs list-services --output json --cluster $ECS_CLUSTER | jq -r $expr)
-if ! $SNAME; then
+if $SNAME == ""; then
     echo "Missing Service ARN for ${ECS_SERVICE}"
     exit 1
 fi
