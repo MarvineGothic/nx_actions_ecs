@@ -42,8 +42,9 @@ aws ecs register-task-definition --family $ECS_TASK_NAME --cli-input-json "$(ech
 echo "Update service"
 SUCCESS_UPDATE=$(aws ecs update-service --service $SNAME --task-definition $ECS_TASK_NAME --cluster $ECS_CLUSTER || exit 1)
 
-echo "ECS updated: ${SUCCESS_UPDATE}"
-if [ -z ${SUCCESS_UPDATE+x} ] || [ !$SUCCESS_UPDATE ] || [ $SUCCESS_UPDATE == false ] || [ $SUCCESS_UPDATE == ""] || [ -z "$SUCCESS_UPDATE"]; then
+if [ -z ${SUCCESS_UPDATE+x} ] || [ !$SUCCESS_UPDATE ]; then
     echo "ECS is not updated"
     exit 1;
 fi
+
+echo "ECS updated: ${SUCCESS_UPDATE}"
