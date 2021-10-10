@@ -3,7 +3,7 @@ IMAGE_TAG=$1
 ECR_REGISTRY=$2
 ENV=$3
 
-if [ ENV == "staging" ]; then
+if [ $ENV == "staging" ]; then
     ECR_REPOSITORY="staging/nx-api"
     ECS_CLUSTER="staging-backend"
     ECS_SERVICE="staging-service-backend"
