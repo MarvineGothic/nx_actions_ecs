@@ -1,11 +1,11 @@
 name: Deploy to Amazon ECS 'staging'
 
 on:
-  # push:
-  #   branches:
-  #     - 'main'
-  pull_request:
-    branches: [main, si-8]
+  push:
+    branches:
+      - 'main'
+  # pull_request:
+  #   branches: [main, si-8]
 
 env:
   AWS_REGION: "eu-west-1" 
