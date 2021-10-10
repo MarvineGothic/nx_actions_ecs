@@ -9,8 +9,8 @@ if [ ENV == "staging" ]; then
     ECS_SERVICE="staging-service-backend"
 else
     ECR_REPOSITORY="production/nx-api"
-    ECS_CLUSTER="staging-backend"
-    ECS_SERVICE="staging-service-backend"
+    ECS_CLUSTER="production-backend"
+    ECS_SERVICE="production-service-backend"
 fi
 
 DOCKER_IMAGE="${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}"
