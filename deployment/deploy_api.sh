@@ -17,11 +17,11 @@ DOCKER_IMAGE="${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}"
 DOCKER_IMAGE_LATEST="${ECR_REGISTRY}/${ECR_REPOSITORY}:latest"
 
 echo "Build api docker images"
-docker build -t $DOCKER_IMAGE -f ./apps/api/Dockerfile .
-# docker tag $DOCKER_IMAGE_LATEST $DOCKER_IMAGE
+docker build -t $DOCKER_IMAGE_LATEST -f ./apps/api/Dockerfile .
+docker tag $DOCKER_IMAGE_LATEST $DOCKER_IMAGE
 
 echo "Push api docker images to ECR"
-# docker push $DOCKER_IMAGE_LATEST
+docker push $DOCKER_IMAGE_LATEST
 docker push $DOCKER_IMAGE
 
 echo "Try to push image to ECS"
