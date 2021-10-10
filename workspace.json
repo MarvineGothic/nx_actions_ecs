@@ -56,9 +56,10 @@
           "outputs": [],
           "options": {
             "commands": [
-              "nx build api"
+              "nx build api",
+              "bash deployment/deploy_api.sh {args.sha} {args.ecr_registry} {args.env}"
             ],
-            "cwd": "."
+            "parallel": false
           }
         }
       }
@@ -118,8 +119,10 @@
           "outputs": [],
           "options": {
             "commands": [
-              "nx build html"
+              "nx build html",
+              "bash deployment/deploy_html.sh {args.sha} {args.ecr_registry} {args.env}"
             ],
+            "parallel": false,
             "cwd": "."
           }
         }
