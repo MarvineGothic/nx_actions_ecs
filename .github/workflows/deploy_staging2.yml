@@ -47,4 +47,4 @@ jobs:
         args: 
           --sha=${{ github.sha }}
           --ecr_registry=${{ steps.login-ecr.outputs.registry }}
-          --env="staging"
+          --env=staging
