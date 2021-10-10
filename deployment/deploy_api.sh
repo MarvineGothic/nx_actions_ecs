@@ -4,7 +4,7 @@ ECR_REGISTRY=$2
 ENV=$3
 
 echo "Check ENV: ${ENV}"
-if [ "$ENV" == "staging" ]; then
+if [ $ENV == "staging" ]; then
     ECR_REPOSITORY="staging/nx-api"
     ECS_CLUSTER="staging-backend"
     ECS_SERVICE="staging-service-backend"
