@@ -42,7 +42,7 @@ jobs:
  
     - uses: MansaGroup/nrwl-nx-action@v2.0.6
       with:
-        targets: deploy
+        targets: lint,format:check,test,e2e,deploy
         args: 
           --sha=${{ github.sha }}
           --ecr_registry=${{ steps.login-ecr.outputs.registry }}
