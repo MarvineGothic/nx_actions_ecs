@@ -25,4 +25,4 @@ docker push $DOCKER_IMAGE_LATEST
 docker push $DOCKER_IMAGE
 
 echo "Try to push image to ECS"
-ecs-deploy -c $ECS_CLUSTER -n $ECS_SERVICE -i $DOCKER_IMAGE -t 240
+ecs-deploy -c $ECS_CLUSTER -n $ECS_SERVICE -i $DOCKER_IMAGE --skip-deployments-check
