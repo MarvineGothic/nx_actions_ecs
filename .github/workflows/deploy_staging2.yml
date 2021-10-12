@@ -25,12 +25,18 @@ jobs:
     - name: yarn install
       run: yarn
 
+    - name: Get yarn cache directory path
+      id: yarn-cache-dir-path
+      run: echo "::set-output name=dir::$(yarn cache dir)"
+
     - name: Cache node modules
       id: yarn-cache
       uses: actions/cache@v2
       with:
-        path: './*'
-        key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+    - name: Check cache
+      run: echo ${{steps.yarn-cache.outputs.cache-hit}}
 
     - name: Check lint and test
       uses: MansaGroup/nrwl-nx-action@v2.0.6
@@ -45,12 +51,18 @@ jobs:
 
     steps:
 
+    - name: Get yarn cache directory path
+      id: yarn-cache-dir-path
+      run: echo "::set-output name=dir::$(yarn cache dir)"
+
     - name: Cache node modules
       id: yarn-cache
       uses: actions/cache@v2
       with:
-        path: './*'
-        key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+    - name: Check cache
+      run: echo ${{steps.yarn-cache.outputs.cache-hit}}
 
     - name: Install ecs-deploy
       run: |
