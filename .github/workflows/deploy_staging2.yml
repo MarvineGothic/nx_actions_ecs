@@ -11,10 +11,22 @@ env:
   AWS_REGION: "eu-west-1" 
   
 jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    environment: staging
+
+    steps:
+    - name: Check lint and test
+      uses: MansaGroup/nrwl-nx-action@v2.0.6
+      with:
+        targets: lint,format:check,test,e2e
+
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
     environment: staging
+    needs: test
 
     steps:
     - name: Checkout
@@ -40,9 +52,10 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
  
-    - uses: MansaGroup/nrwl-nx-action@v2.0.6
+    - name: Deploy
+      uses: MansaGroup/nrwl-nx-action@v2.0.6
       with:
-        targets: lint,format:check,test,e2e,deploy
+        targets: deploy
         args: 
           --sha=${{ github.sha }}
           --ecr_registry=${{ steps.login-ecr.outputs.registry }}
