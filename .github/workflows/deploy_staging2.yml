@@ -29,10 +29,8 @@ jobs:
       id: yarn-cache
       uses: actions/cache@v2
       with:
-        path: "./*"
-        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-    - name: Check cache
-      run: echo ${{steps.yarn-cache.outputs.cache-hit}}
+        path: '**/node_modules'
+        key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
     - name: Check lint and test
       uses: MansaGroup/nrwl-nx-action@v2.0.6
@@ -51,10 +49,8 @@ jobs:
       id: yarn-cache
       uses: actions/cache@v2
       with:
-        path: "./*"
-        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-    - name: Check cache
-      run: echo ${{steps.yarn-cache.outputs.cache-hit}}
+        path: '**/node_modules'
+        key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
     - name: Install ecs-deploy
       run: |
