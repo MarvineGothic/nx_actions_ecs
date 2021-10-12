@@ -31,7 +31,7 @@ jobs:
       with:
         path: '**/node_modules'
         key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-        
+
     - name: Check lint and test
       uses: MansaGroup/nrwl-nx-action@v2.0.6
       with:
