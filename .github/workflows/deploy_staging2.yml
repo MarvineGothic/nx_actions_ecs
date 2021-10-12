@@ -21,8 +21,16 @@ jobs:
       uses: actions/checkout@v2
       with:
         fetch-depth: 0
+
     - name: yarn install
       run: yarn
+      
+    - name: Cache node modules
+      id: yarn-cache
+      uses: actions/cache@v2
+      with:
+        path: '**/node_modules'
+        key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
     - name: Check lint and test
       uses: MansaGroup/nrwl-nx-action@v2.0.6
