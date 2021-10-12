@@ -24,13 +24,6 @@ jobs:
 
     - name: yarn install
       run: yarn
-      
-    - name: Cache node modules
-      id: yarn-cache
-      uses: actions/cache@v2
-      with:
-        path: '**/node_modules'
-        key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
     - name: Check lint and test
       uses: MansaGroup/nrwl-nx-action@v2.0.6
@@ -44,6 +37,14 @@ jobs:
     needs: test
 
     steps:
+
+    - name: Cache node modules
+      id: yarn-cache
+      uses: actions/cache@v2
+      with:
+        path: '**/node_modules'
+        key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+        
     - name: Install ecs-deploy
       run: |
         curl https://raw.githubusercontent.com/silinternational/ecs-deploy/master/ecs-deploy | sudo tee /usr/bin/ecs-deploy
