@@ -62,15 +62,15 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
-    - name: Get SHA
-      id: get-sha
-      run: echo "::set-output sha=$(echo ${{ github.sha }} | cut -c 1-7)"
+    - name: Get ImageTag
+      id: tag
+      run: echo "::set-output name=imagetag::$(echo ${{ github.sha }} | cut -c 1-7)"
 
     - name: Deploy
       uses: MansaGroup/nrwl-nx-action@v2.0.6
       with:
         targets: deploy
-        args: 
-          --sha=${{ steps.get-sha.outputs.sha }}
+        args:
+          --sha=${{ steps.tag.outputs.imagetag }}
           --ecr_registry=${{ steps.login-ecr.outputs.registry }}
           --env="staging"
