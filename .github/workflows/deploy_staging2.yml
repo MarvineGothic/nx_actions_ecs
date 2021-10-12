@@ -17,6 +17,13 @@ jobs:
     environment: staging
 
     steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: yarn install
+      run: yarn
+
     - name: Check lint and test
       uses: MansaGroup/nrwl-nx-action@v2.0.6
       with:
@@ -29,13 +36,6 @@ jobs:
     needs: test
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-    - name: yarn install
-      run: yarn
-    
     - name: Install ecs-deploy
       run: |
         curl https://raw.githubusercontent.com/silinternational/ecs-deploy/master/ecs-deploy | sudo tee /usr/bin/ecs-deploy
