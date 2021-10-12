@@ -63,7 +63,7 @@ jobs:
       uses: aws-actions/amazon-ecr-login@v1
 
     - name: Get ImageTag
-      id: tag
+      id: get-tag
       run: echo "::set-output name=imagetag::$(echo ${{ github.sha }} | cut -c 1-7)"
 
     - name: Deploy
@@ -71,6 +71,6 @@ jobs:
       with:
         targets: deploy
         args:
-          --sha=${{ steps.tag.outputs.imagetag }}
+          --sha=${{ steps.get-tag.outputs.imagetag }}
           --ecr_registry=${{ steps.login-ecr.outputs.registry }}
           --env="staging"
