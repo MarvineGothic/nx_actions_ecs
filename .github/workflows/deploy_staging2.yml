@@ -22,9 +22,6 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: yarn install
-      run: yarn
-
     - name: Cache Node Modules
       id: node-cache
       uses: actions/cache@v2
