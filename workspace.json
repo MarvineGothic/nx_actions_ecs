@@ -57,7 +57,7 @@
           "options": {
             "commands": [
               "nx build api",
-              "bash deployment/deploy_api.sh {args.sha} {args.ecr_registry} {args.env}"
+              "bash deployment/deploy_api.sh {args.image_tag} {args.ecr_registry} {args.env}"
             ],
             "parallel": false
           }
@@ -120,7 +120,7 @@
           "options": {
             "commands": [
               "nx build html",
-              "bash deployment/deploy_html.sh {args.sha} {args.ecr_registry} {args.env}"
+              "bash deployment/deploy_html.sh {args.image_tag} {args.ecr_registry} {args.env}"
             ],
             "parallel": false,
             "cwd": "."

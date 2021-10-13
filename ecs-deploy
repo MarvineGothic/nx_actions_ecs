@@ -783,25 +783,25 @@ if [ "$BASH_SOURCE" == "$0" ]; then
     # create new task definition json
     createNewTaskDefJson
 
-    # registerNewTaskDefinition
-    # echo "New task definition: $NEW_TASKDEF";
+    registerNewTaskDefinition
+    echo "New task definition: $NEW_TASKDEF";
 
-    # if [ $SERVICE == false ]; then
-    #     if [ $RUN_TASK == true ]; then
-    #         runTask
-    #     fi
-    #     echo "Task definition updated successfully"
-    # else
-    #     updateService
+    if [ $SERVICE == false ]; then
+        if [ $RUN_TASK == true ]; then
+            runTask
+        fi
+        echo "Task definition updated successfully"
+    else
+        updateService
 
-    #     if [[ $SKIP_DEPLOYMENTS_CHECK != true ]]; then
-    #       waitForGreenDeployment
-    #     fi
-    # fi
+        if [[ $SKIP_DEPLOYMENTS_CHECK != true ]]; then
+          waitForGreenDeployment
+        fi
+    fi
 
-    # if [[ "$AWS_ASSUME_ROLE" != false ]]; then
-    #     assumeRoleClean
-    # fi
+    if [[ "$AWS_ASSUME_ROLE" != false ]]; then
+        assumeRoleClean
+    fi
 
     exit 0
 

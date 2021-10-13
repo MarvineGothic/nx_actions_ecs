@@ -25,6 +25,17 @@ jobs:
     - name: yarn install
       run: yarn
 
+    - name: Cache Node Modules
+      id: node-cache
+      uses: actions/cache@v2
+      with:
+        path: node_modules
+        key: node-modules-${{ hashFiles('yarn.lock') }}
+
+    - name: Install Dependencies
+      if: steps.node-cache.outputs.cache-hit != 'true'
+      run: yarn install
+
     - name: Check lint and test
       uses: MansaGroup/nrwl-nx-action@v2.0.6
       with:
@@ -43,8 +54,16 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: yarn install
-      run: yarn
+    - name: Cache Node Modules
+      id: node-cache
+      uses: actions/cache@v2
+      with:
+        path: node_modules
+        key: node-modules-${{ hashFiles('yarn.lock') }}
+        
+    - name: Install Dependencies
+      if: steps.node-cache.outputs.cache-hit != 'true'
+      run: yarn install
       
     - name: Install ecs-deploy
       run: |
@@ -71,6 +90,6 @@ jobs:
       with:
         targets: deploy
         args:
-          --sha=${{ steps.get-tag.outputs.imagetag }}
+          --image_tag=${{ steps.get-tag.outputs.imagetag }}
           --ecr_registry=${{ steps.login-ecr.outputs.registry }}
           --env="staging"
