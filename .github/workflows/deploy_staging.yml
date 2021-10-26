@@ -6,7 +6,9 @@ on:
   #     - 'main'
   push:
     tags:
-     - 'staging-v**'
+      - 'staging-v**'
+    branches:
+      - 'staging'
 
 env:
   AWS_REGION: "eu-west-1" 
