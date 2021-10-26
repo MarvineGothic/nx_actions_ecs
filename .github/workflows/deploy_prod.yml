@@ -30,11 +30,8 @@ on:
   push:
     tags:
       - 'v**'
-    branches:
-      - 'main'
-  # pull_request:
-  #   branches:
-  #     - '**'
+  # release:
+  #   types: [published]
 
 env:
   AWS_REGION: "eu-west-1"                                       # set this to your preferred AWS region, e.g. us-west-1
@@ -47,6 +44,7 @@ env:
                                                                 # containerDefinitions section of your task definition
 
 jobs:
+  # if:  ${{ startsWith(github.event.release.tag_name, 'v') }}
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
@@ -57,6 +55,7 @@ jobs:
       uses: actions/checkout@v2
       with:
         fetch-depth: 0
+      run: echo github.event.release
 
     # - name: yarn install
     #   run: yarn
