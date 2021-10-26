@@ -23,6 +23,16 @@ jobs:
       with:
         fetch-depth: 0
 
+    - name: Check github
+      env:
+        GITHUB: ${{ toJson(github) }}
+      run: echo "$GITHUB" 
+
+    - name: Check event
+      env:
+        GITHUB_EVENT: ${{ toJson(github.event) }}
+      run: echo "$GITHUB_EVENT" 
+
     - name: Check Release
       env:
         GITHUB_RELEASE: ${{ toJson(github.event.release) }}
