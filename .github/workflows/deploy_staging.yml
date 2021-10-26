@@ -24,7 +24,7 @@ jobs:
         fetch-depth: 0
 
     - name: Check Release
-      run: echo github.event.release
+      run: echo ${{github.event.release}}
 
   #   - name: Cache Node Modules
   #     id: node-cache
