@@ -17,5 +17,5 @@ jobs:
       #   with:
       #     targets: lint,format:check,test,e2e
       - name: Check github events
-        run: echo ${{ fromJSON(github) }}
+        run: echo ${{ toJSON(github) }}
         
