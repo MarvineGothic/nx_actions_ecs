@@ -24,7 +24,9 @@ jobs:
         fetch-depth: 0
 
     - name: Check Release
-      run: echo ${{github.event.release}}
+      env:
+        GITHUB_RELEASE: ${{ toJson(github.event.release) }}
+      run: echo "$GITHUB_RELEASE" 
 
   #   - name: Cache Node Modules
   #     id: node-cache
