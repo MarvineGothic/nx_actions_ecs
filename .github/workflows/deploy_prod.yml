@@ -55,7 +55,6 @@ jobs:
       uses: actions/checkout@v2
       with:
         fetch-depth: 0
-      run: echo github.event.release
 
     # - name: yarn install
     #   run: yarn
