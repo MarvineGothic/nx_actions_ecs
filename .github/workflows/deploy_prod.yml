@@ -61,7 +61,7 @@ jobs:
         GITHUB: ${{ toJson(github) }}
       run: echo "$GITHUB" 
 
-    if: github.event.base_ref == 'refs/heads/main'
+    if: ${{ github.event.base_ref == 'refs/heads/main' }}
     - name: Check event
       env:
         GITHUB_EVENT: ${{ toJson(github.event) }}
