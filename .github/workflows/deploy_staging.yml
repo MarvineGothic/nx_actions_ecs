@@ -29,10 +29,11 @@ jobs:
       run: echo "$GITHUB" 
 
     - name: Check event
+      if: ${{ github.event.base_ref == 'refs/heads/staging' }}
       env:
         GITHUB_EVENT: ${{ toJson(github.event) }}
       run: echo "$GITHUB_EVENT" 
-
+  
     - name: Check Release
       env:
         GITHUB_RELEASE: ${{ toJson(github.event.release) }}
