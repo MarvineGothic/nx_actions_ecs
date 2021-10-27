@@ -28,8 +28,8 @@ jobs:
         GITHUB: ${{ toJson(github) }}
       run: echo "$GITHUB" 
 
-    if: ${{ github.event.base_ref == 'refs/heads/staging' }}
     - name: Check event
+      if: ${{ github.event.base_ref == 'refs/heads/staging' }}
       env:
         GITHUB_EVENT: ${{ toJson(github.event) }}
       run: echo "$GITHUB_EVENT" 
