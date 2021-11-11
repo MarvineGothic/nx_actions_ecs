@@ -38,71 +38,74 @@ jobs:
         GITHUB_RELEASE: ${{ toJson(github.event.release) }}
       run: echo "$GITHUB_RELEASE" 
 
-  #   - name: Cache Node Modules
-  #     id: node-cache
-  #     uses: actions/cache@v2
-  #     with:
-  #       path: node_modules
-  #       key: node-modules-${{ hashFiles('yarn.lock') }}
+    - name: Cache Node Modules
+      id: node-cache
+      uses: actions/cache@v2
+      with:
+        path: node_modules
+        key: node-modules-${{ hashFiles('yarn.lock') }}
 
-  #   - name: Install Dependencies
-  #     if: steps.node-cache.outputs.cache-hit != 'true'
-  #     run: yarn install
+    - name: Install Dependencies
+      if: steps.node-cache.outputs.cache-hit != 'true'
+      run: yarn install
 
-  #   - name: Check lint and test
-  #     uses: MansaGroup/nrwl-nx-action@v2.0.6
-  #     with:
-  #       targets: lint,format:check,test,e2e
+    - name: Check lint and test
+      uses: MansaGroup/nrwl-nx-action@v2.0.6
+      with:
+        targets: lint,format:check,test,e2e
+        parallel: 'true'
 
-  # deploy:
-  #   name: Deploy
-  #   runs-on: ubuntu-latest
-  #   environment: staging
-  #   needs: test
+  deploy:
 
-  #   steps:
+    if: ${{ github.event.base_ref == 'refs/heads/staging' }}
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: staging
+    needs: test
 
-  #   - name: Checkout
-  #     uses: actions/checkout@v2
-  #     with:
-  #       fetch-depth: 0
+    steps:
 
-  #   - name: Cache Node Modules
-  #     id: node-cache
-  #     uses: actions/cache@v2
-  #     with:
-  #       path: node_modules
-  #       key: node-modules-${{ hashFiles('yarn.lock') }}
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Cache Node Modules
+      id: node-cache
+      uses: actions/cache@v2
+      with:
+        path: node_modules
+        key: node-modules-${{ hashFiles('yarn.lock') }}
         
-  #   - name: Install Dependencies
-  #     if: steps.node-cache.outputs.cache-hit != 'true'
-  #     run: yarn install
+    - name: Install Dependencies
+      if: steps.node-cache.outputs.cache-hit != 'true'
+      run: yarn install
       
-  #   - name: Install ecs-deploy
-  #     run: |
-  #       curl https://raw.githubusercontent.com/silinternational/ecs-deploy/master/ecs-deploy | sudo tee /usr/bin/ecs-deploy
-  #       sudo chmod +x /usr/bin/ecs-deploy
+    - name: Install ecs-deploy
+      run: |
+        curl https://raw.githubusercontent.com/silinternational/ecs-deploy/master/ecs-deploy | sudo tee /usr/bin/ecs-deploy
+        sudo chmod +x /usr/bin/ecs-deploy
 
-  #   - name: Configure AWS credentials
-  #     uses: aws-actions/configure-aws-credentials@v1
-  #     with:
-  #       aws-access-key-id: ${{ secrets.AWS_STAGING_ACCESS_KEY }}
-  #       aws-secret-access-key: ${{ secrets.AWS_STAGING_SECRET_KEY }}
-  #       aws-region: ${{ env.AWS_REGION }}
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_STAGING_ACCESS_KEY }}
+        aws-secret-access-key: ${{ secrets.AWS_STAGING_SECRET_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
     
-  #   - name: Login to Amazon ECR
-  #     id: login-ecr
-  #     uses: aws-actions/amazon-ecr-login@v1
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
 
-  #   - name: Get ImageTag
-  #     id: get-tag
-  #     run: echo "::set-output name=imagetag::$(echo ${{ github.sha }} | cut -c 1-7)"
+    - name: Get ImageTag
+      id: get-tag
+      run: echo "::set-output name=imagetag::$(echo ${{ github.sha }} | cut -c 1-7)"
 
-  #   - name: Deploy
-  #     uses: MansaGroup/nrwl-nx-action@v2.0.6
-  #     with:
-  #       targets: deploy
-  #       args:
-  #         --image_tag=${{ steps.get-tag.outputs.imagetag }}
-  #         --ecr_registry=${{ steps.login-ecr.outputs.registry }}
-  #         --env="staging"
+    - name: Deploy
+      uses: MansaGroup/nrwl-nx-action@v2.0.6
+      with:
+        targets: deploy
+        args:
+          --image_tag=${{ steps.get-tag.outputs.imagetag }}
+          --ecr_registry=${{ steps.login-ecr.outputs.registry }}
+          --env="staging"
