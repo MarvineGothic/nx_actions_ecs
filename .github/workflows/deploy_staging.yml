@@ -48,7 +48,7 @@ jobs:
       run: yarn install
 
     - name: Check lint and test
-      if: ${{ github.event.base_ref == 'refs/heads/staging' }}
+      if: ${{ github.event.release.target_commitish == 'staging' }}
       uses: MansaGroup/nrwl-nx-action@v2.0.6
       with:
         targets: lint,format:check,test,e2e
@@ -56,7 +56,7 @@ jobs:
 
   deploy:
 
-    if: ${{ github.event.base_ref == 'refs/heads/staging' }}
+    if: ${{ github.event.release.target_commitish == 'staging' }}
     name: Deploy
     runs-on: ubuntu-latest
     environment: staging
