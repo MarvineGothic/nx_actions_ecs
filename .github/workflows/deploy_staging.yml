@@ -1,9 +1,8 @@
 name: Deploy to Amazon ECS 'staging'
 
 on:
-  create:
-    tags:
-      - 'staging-v**'
+  release: 
+    types: [released]
 
 env:
   AWS_REGION: "eu-west-1" 
