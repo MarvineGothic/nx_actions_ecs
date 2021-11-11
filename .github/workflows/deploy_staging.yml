@@ -1,7 +1,7 @@
 name: Deploy to Amazon ECS 'staging'
 
 on:
-  push:
+  create:
     tags:
       - 'staging-v**'
 
