@@ -11,7 +11,6 @@ jobs:
 
   test:
 
-    if: ${{ github.event.base_ref == 'refs/heads/staging' }}
     name: Test
     runs-on: ubuntu-latest
     environment: staging
@@ -48,6 +47,7 @@ jobs:
       if: steps.node-cache.outputs.cache-hit != 'true'
       run: yarn install
 
+    if: ${{ github.event.base_ref == 'refs/heads/staging' }}
     - name: Check lint and test
       uses: MansaGroup/nrwl-nx-action@v2.0.6
       with:
