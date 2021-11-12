@@ -2,7 +2,7 @@ name: Deploy to Amazon ECS 'staging'
 
 on:
   release: 
-    types: [released]
+    types: [published]
 
 env:
   AWS_REGION: "eu-west-1" 
