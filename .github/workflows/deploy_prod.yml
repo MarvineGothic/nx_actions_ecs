@@ -46,7 +46,7 @@ env:
 jobs:
   deploy:
 
-    if: ${{ github.event.base_ref == 'refs/heads/main' }}
+    if: ${{ github.event.release.target_commitish == 'main' }}
     name: Deploy
     runs-on: ubuntu-latest
     environment: staging
