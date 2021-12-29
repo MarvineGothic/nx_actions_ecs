@@ -22,4 +22,4 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT" 
       - name: Git diff
-        run: git diff --dirstat=files origin/staging
+        run: sh git_diff.sh
